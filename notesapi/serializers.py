@@ -24,9 +24,9 @@ class TextSerializer(serializers.ModelSerializer):
         if user == obj.created_by:
             permission =  'admin'
         if user in obj.write_access_to.all()  :
-            permission =  'read_write'
+            permission =  'editor'
         elif user in obj.read_access_to.all():
-            permission =  'only_read' 
+            permission =  'read_only' 
         return permission
 
 class VideoSerializer(serializers.ModelSerializer):
@@ -45,7 +45,7 @@ class VideoSerializer(serializers.ModelSerializer):
         if user == obj.created_by:
             permission =  'admin'
         if user in obj.write_access_to.all()  :
-            permission =  'read_write'
+            permission =  'editor'
         elif user in obj.read_access_to.all():
             permission =  'read_only' 
         return permission

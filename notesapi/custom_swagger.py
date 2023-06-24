@@ -5,7 +5,7 @@ permission_param = openapi.Parameter(
     openapi.IN_QUERY,
     description="Access to permission",
     type=openapi.TYPE_STRING,
-    enum=["admin", "read_only", "read_write"],
+    enum=["admin", "read_only", "editor"],
     required=True,
 )
 
@@ -83,3 +83,42 @@ get_user_note_response = {
         ),
     ),
 }
+
+share_note_request_body = openapi.Schema(
+    type=openapi.TYPE_OBJECT,
+    properties={
+        "note_type": openapi.Schema(type=openapi.TYPE_STRING, enum=["text", "video"]),
+        "share_with": openapi.Schema(
+            type=openapi.TYPE_STRING, description="username of note receiver"
+        ),
+        "permission": openapi.Schema(
+            type=openapi.TYPE_STRING, enum=["read_only", "editor"]
+        ),
+    },
+    required=["note_type", "share_with", "permission"],
+)
+
+update_note_request_body = ""
+# update_note_request_body = openapi.Schema(
+#     type=openapi.TYPE_OBJECT,
+#     properties={
+#         "title": openapi.Schema(type=openapi.TYPE_STRING),
+#         "text": openapi.Schema(type=openapi.TYPE_STRING ),
+#         "description": openapi.Schema(type=openapi.TYPE_STRING), 
+#         # 'video': openapi.Schema(type=openapi.TYPE_FILE),
+#     },
+# )
+
+video_param = openapi.Parameter(
+    "video",
+    openapi.IN_FORM,
+    description="Type of note",
+    type=openapi.TYPE_FILE,  
+)
+
+openapi.Parameter(
+            name='video',
+            in_=openapi.IN_FORM,
+            type=openapi.TYPE_FILE,
+        ),
+
